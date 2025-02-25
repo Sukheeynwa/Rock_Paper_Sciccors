@@ -1,7 +1,6 @@
 // Getting Elements
 
 const mainContainer = document.getElementById("mainContainer");
-const gameContainer = document.getElementById("gameContainer");
 
 // Functions
 
@@ -71,9 +70,9 @@ function renderGame() {
     menuBtn.textContent = "MAIN MENU";
     const resetBtn = document.createElement("button");
     resetBtn.textContent = "RESET";
-    gameContainer.appendChild(gameName);
-    gameContainer.appendChild(menuBtn);
-    gameContainer.appendChild(resetBtn);
+    mainContainer.appendChild(gameName);
+    mainContainer.appendChild(menuBtn);
+    mainContainer.appendChild(resetBtn);
 
     menuBtn.addEventListener("click", ()=> {
         clearHTML();
@@ -87,7 +86,7 @@ function renderGame() {
     // Player
     const playerContainer = document.createElement("div");
     playerContainer.id = "playerContainer";
-    gameContainer.appendChild(playerContainer);
+    mainContainer.appendChild(playerContainer);
 
     const playerName = document.createElement("h1");
     playerName.textContent = "YOU";
@@ -113,6 +112,7 @@ function renderGame() {
     playerSciTitle.textContent = "SCICCORS";
 
     let playerScore = 0;
+    let playerInput = "";
     const playerScoreTitle = document.createElement("h1");
     playerScoreTitle.textContent = "SCORE:" + playerScore;
     
@@ -129,8 +129,77 @@ function renderGame() {
     playerSciContainer.appendChild(playerSci);
     playerSciContainer.appendChild(playerSciTitle);
 
+    playerRock.addEventListener("click", ()=> {
+        playerInput = 0;
+    });
+    playerPaper.addEventListener("click", ()=> {
+        playerInput = 1;
+    });
+    playerSci.addEventListener("click", ()=> {
+        playerInput = 2;
+    });
+
+    // Computer
     const comContainer = document.createElement("div");
     comContainer.id = "comContainer";
+    mainContainer.appendChild(comContainer);
+
+    const comName = document.createElement("h1");
+    comName.textContent = "COMPUTER";
+    const comChoices = document.createElement("div");
+    comChoices.id = "comChoices";
+
+    const comRockContainer = document.createElement("div");
+    const comRock = document.createElement("img");
+    comRock.setAttribute("src","assets/rock.png");
+    const comRockTitle = document.createElement("p");
+    comRockTitle.textContent = "ROCK";
+
+    const comPaperContainer = document.createElement("div");
+    const comPaper = document.createElement("img");
+    comPaper.setAttribute("src", "assets/paper.png");
+    const comPaperTitle = document.createElement("p");
+    comPaperTitle.textContent = "PAPER";
+    
+    const comSciContainer = document.createElement("div");
+    const comSci = document.createElement("img");
+    comSci.setAttribute("src", "assets/sciccors.png");
+    const comSciTitle = document.createElement("p");
+    comSciTitle.textContent = "SCICCORS";
+
+    let comScore = 0;
+    let comInput = "";
+    const comScoreTitle = document.createElement("h1");
+    comScoreTitle.textContent = "SCORE:" + comScore;
+    
+    comContainer.appendChild(comName);
+    comContainer.appendChild(comChoices);
+    comContainer.appendChild(comScoreTitle);
+    comChoices.appendChild(comRockContainer);
+    comChoices.appendChild(comPaperContainer);
+    comChoices.appendChild(comSciContainer);
+    comRockContainer.appendChild(comRock);
+    comRockContainer.appendChild(comRockTitle);
+    comPaperContainer.appendChild(comPaper);
+    comPaperContainer.appendChild(comPaperTitle);
+    comSciContainer.appendChild(comSci);
+    comSciContainer.appendChild(comSciTitle);
+
+
+    // Game rule
+    /* 
+        rock = 0;
+        paper = 1;
+        sci = 2;
+    */
+
+    if (playerInput === comInput) {
+        console.log("TIE!");
+    } else if (playerInput === 0 && comInput === 1) {
+        comScore =+ 1;
+    } else if (playerInput === 0 && comInput === 2) {
+        playerScore =+ 1;
+    } 
 };
 
 // StartUp function

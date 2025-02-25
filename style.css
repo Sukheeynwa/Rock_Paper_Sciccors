@@ -7,8 +7,7 @@ h1 {
     font-size: 40px;
 }
 
-#mainContainer,
-#gameContainer {
+#mainContainer {
     padding: 80px;
     display: flex;
     flex-direction: column;
@@ -48,22 +47,33 @@ img:active {
     transition-duration: 30ms;
 }
 
-#playerContainer {
+#playerContainer,
+#comContainer {
     background-color: #E2E56E;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 40px;
-    padding: 20px 80px;
+    padding: 10px 40px;
 }
 
-#playerChoices {
+#playerContainer {
+    background-color: #E2E56E;
+}
+
+#comContainer {
+    background-color: coral;
+}
+
+#playerChoices,
+#comChoices {
     display: flex;
     gap: 30px;
 }
 
-#playerChoices div {
+#playerChoices div,
+#comChoices div {
     display: flex;
     flex-direction: column;
     align-items: center;
