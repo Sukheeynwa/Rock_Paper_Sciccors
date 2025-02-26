@@ -7,12 +7,6 @@ const mainContainer = document.getElementById("mainContainer");
 function startGame() {
     clearHTML();
     renderGame();
-    console.log("hi");
-};
-
-function resetGame() {
-    clearHTML();
-    renderMenu();
 };
 
 function clearHTML() {
@@ -50,8 +44,6 @@ function renderMenu() {
     choiceContainer.appendChild(paperImg);
     choiceContainer.appendChild(sciImg);
 
-// generateMenu Event listeners
-
     startGameBtn.addEventListener("click", ()=> {
         startGame();
     });
@@ -65,7 +57,7 @@ function renderGame() {
     const gameName = document.createElement("h1");
     gameName.textContent = "ROCK PAPER SCICCORS GAME";
 
-    // Game Button
+    // Game Buttons
     const menuBtn = document.createElement("button");
     menuBtn.textContent = "MAIN MENU";
     menuBtn.id = "menuBtn";
@@ -85,7 +77,8 @@ function renderGame() {
         renderGame();
     });
 
-    // Player
+
+    // Player render
     const playerContainer = document.createElement("div");
     playerContainer.id = "playerContainer";
     mainContainer.appendChild(playerContainer);
@@ -151,7 +144,7 @@ function renderGame() {
         gameRun();
     });
 
-    // Computer
+    // Computer render
     const comContainer = document.createElement("div");
     comContainer.id = "comContainer";
     mainContainer.appendChild(comContainer);
@@ -180,7 +173,61 @@ function renderGame() {
     comSciTitle.textContent = "SCICCORS";
 
     let comInput = 0;
+    let comScore = 0;
 
+    const comScoreTitle = document.createElement("h1");
+    comScoreTitle.textContent = "SCORE: 0";
+    
+    comContainer.appendChild(comName);
+    comContainer.appendChild(comChoices);
+    comContainer.appendChild(comScoreTitle);
+    comChoices.appendChild(comRockContainer);
+    comChoices.appendChild(comPaperContainer);
+    comChoices.appendChild(comSciContainer);
+    comRockContainer.appendChild(comRock);
+    comRockContainer.appendChild(comRockTitle);
+    comPaperContainer.appendChild(comPaper);
+    comPaperContainer.appendChild(comPaperTitle);
+    comSciContainer.appendChild(comSci);
+    comSciContainer.appendChild(comSciTitle);
+
+    const comPlayerContainer = document.createElement("div");
+    mainContainer.appendChild(comPlayerContainer);
+    comPlayerContainer.appendChild(playerContainer);
+    comPlayerContainer.appendChild(comContainer);
+    
+    // Game text
+    const gameText = document.createElement("p");
+    gameText.textContent = "CHOOSE!";
+    mainContainer.appendChild(gameText);
+    gameText.style.fontSize = "24px";
+
+    // Game modal
+    const lostModal = document.getElementById("lostModal");
+    const wonModal = document.getElementById("wonModal");
+
+    const startGameModalBtn = document.querySelectorAll("#startGameModalBtn");
+    const exitGameModalBtn = document.querySelectorAll("#exitGameModalBtn");
+
+    startGameModalBtn.forEach(button => {
+        button.addEventListener("click", ()=> {
+            console.log("hello")
+            lostModal.close();
+            wonModal.close();
+            startGame();
+        })
+    });
+
+    exitGameModalBtn.forEach(button => {
+        button.addEventListener("click", ()=> {
+            console.log("hello")
+            lostModal.close();
+            wonModal.close();
+            exitGame();
+        })
+    });
+
+    // Game Functions
     function getPlayerInput () {
         playerPaper.style.opacity = "100%";
         playerSci.style.opacity = "100%";
@@ -217,34 +264,6 @@ function renderGame() {
         };
     };
 
-    let comScore = 0;
-
-    const comScoreTitle = document.createElement("h1");
-    comScoreTitle.textContent = "SCORE: 0";
-    
-    comContainer.appendChild(comName);
-    comContainer.appendChild(comChoices);
-    comContainer.appendChild(comScoreTitle);
-    comChoices.appendChild(comRockContainer);
-    comChoices.appendChild(comPaperContainer);
-    comChoices.appendChild(comSciContainer);
-    comRockContainer.appendChild(comRock);
-    comRockContainer.appendChild(comRockTitle);
-    comPaperContainer.appendChild(comPaper);
-    comPaperContainer.appendChild(comPaperTitle);
-    comSciContainer.appendChild(comSci);
-    comSciContainer.appendChild(comSciTitle);
-
-    const comPlayerContainer = document.createElement("div");
-    mainContainer.appendChild(comPlayerContainer);
-    comPlayerContainer.appendChild(playerContainer);
-    comPlayerContainer.appendChild(comContainer);
-
-    const gameText = document.createElement("p");
-    gameText.textContent = "CHOOSE!";
-    mainContainer.appendChild(gameText);
-    gameText.style.fontSize = "24px";
-
     function gameRun() {
         if (playerInput === comInput) {
             gameText.textContent = "TIE!";
@@ -272,9 +291,9 @@ function renderGame() {
         comScoreTitle.textContent = "SCORE: " + comScore;
 
         if (comScore === 5) {
-            console.log("YOU LOST!")
+            lostModal.showModal();
         } else if (playerScore === 5) {
-            console.log("YOU WON!");
+            wonModal.showModal();
         };
     }
 }
@@ -282,15 +301,4 @@ function renderGame() {
 // StartUp function
 
 clearHTML();
-renderGame();
-
-/* 
-
-Main menu garch ireed start button darsnaar togloom ehlene
-
-Uy buriin ehend toglogch turuulj songoltoo hiine
-Daraad ni computer songoltoo hiine
-Hiisen 2 songoltiig haritsuulj toglogch esvel computerd 1 onoo nemne
-Turuulj 5 onoo tsugluulsan ni ylagch bolj modal garch irne
-
-*/
+renderMenu();
