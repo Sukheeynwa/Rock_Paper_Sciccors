@@ -68,8 +68,10 @@ function renderGame() {
     // Game Button
     const menuBtn = document.createElement("button");
     menuBtn.textContent = "MAIN MENU";
+    menuBtn.id = "menuBtn";
     const resetBtn = document.createElement("button");
     resetBtn.textContent = "RESET";
+    resetBtn.id = "resetBtn";
     mainContainer.appendChild(gameName);
     mainContainer.appendChild(menuBtn);
     mainContainer.appendChild(resetBtn);
@@ -111,10 +113,11 @@ function renderGame() {
     const playerSciTitle = document.createElement("p");
     playerSciTitle.textContent = "SCICCORS";
 
-    let playerScore = 0;
     let playerInput = "";
+    let playerScore = 0;
+
     const playerScoreTitle = document.createElement("h1");
-    playerScoreTitle.textContent = "SCORE:" + playerScore;
+    playerScoreTitle.textContent = "SCORE: 0";
     
     playerContainer.appendChild(playerName);
     playerContainer.appendChild(playerChoices);
@@ -131,12 +134,21 @@ function renderGame() {
 
     playerRock.addEventListener("click", ()=> {
         playerInput = 0;
+        getPlayerInput();
+        getComInput();
+        gameRun();
     });
     playerPaper.addEventListener("click", ()=> {
         playerInput = 1;
+        getPlayerInput();
+        getComInput();
+        gameRun();
     });
     playerSci.addEventListener("click", ()=> {
         playerInput = 2;
+        getPlayerInput();
+        getComInput();
+        gameRun();
     });
 
     // Computer
@@ -167,10 +179,48 @@ function renderGame() {
     const comSciTitle = document.createElement("p");
     comSciTitle.textContent = "SCICCORS";
 
+    let comInput = 0;
+
+    function getPlayerInput () {
+        playerPaper.style.opacity = "100%";
+        playerSci.style.opacity = "100%";
+        playerRock.style.opacity = "100%";
+
+        if (playerInput === 0) {
+            playerPaper.style.opacity = "50%";
+            playerSci.style.opacity = "50%";
+        } else if (playerInput === 1) {
+            playerRock.style.opacity = "50%";
+            playerSci.style.opacity = "50%";
+        } else if (playerInput === 2) {
+            playerPaper.style.opacity = "50%";
+            playerRock.style.opacity = "50%";
+        };
+    };
+
+    function getComInput() {
+        comInput = Math.floor(Math.random() * 3);
+
+        comPaper.style.opacity = "100%";
+        comSci.style.opacity = "100%";
+        comRock.style.opacity = "100%";
+
+        if (comInput === 0) {
+            comPaper.style.opacity = "50%";
+            comSci.style.opacity = "50%";
+        } else if (comInput === 1) {
+            comRock.style.opacity = "50%";
+            comSci.style.opacity = "50%";
+        } else if (comInput === 2) {
+            comPaper.style.opacity = "50%";
+            comRock.style.opacity = "50%";
+        };
+    };
+
     let comScore = 0;
-    let comInput = "";
+
     const comScoreTitle = document.createElement("h1");
-    comScoreTitle.textContent = "SCORE:" + comScore;
+    comScoreTitle.textContent = "SCORE: 0";
     
     comContainer.appendChild(comName);
     comContainer.appendChild(comChoices);
@@ -185,22 +235,49 @@ function renderGame() {
     comSciContainer.appendChild(comSci);
     comSciContainer.appendChild(comSciTitle);
 
+    const comPlayerContainer = document.createElement("div");
+    mainContainer.appendChild(comPlayerContainer);
+    comPlayerContainer.appendChild(playerContainer);
+    comPlayerContainer.appendChild(comContainer);
 
-    // Game rule
-    /* 
-        rock = 0;
-        paper = 1;
-        sci = 2;
-    */
+    const gameText = document.createElement("p");
+    gameText.textContent = "CHOOSE!";
+    mainContainer.appendChild(gameText);
+    gameText.style.fontSize = "24px";
 
-    if (playerInput === comInput) {
-        console.log("TIE!");
-    } else if (playerInput === 0 && comInput === 1) {
-        comScore =+ 1;
-    } else if (playerInput === 0 && comInput === 2) {
-        playerScore =+ 1;
-    } 
-};
+    function gameRun() {
+        if (playerInput === comInput) {
+            gameText.textContent = "TIE!";
+        } else if (playerInput === 0 && comInput === 1) {
+            comScore ++;
+            gameText.textContent = "You lost, Paper beats Rock!";
+        } else if (playerInput === 0 && comInput === 2) {
+            playerScore ++;
+            gameText.textContent = "You won, Rock beats Sciccors!";
+        } else if (playerInput === 1 && comInput === 0) {
+            playerScore ++;
+            gameText.textContent = "You won, Paper beats Rock!";
+        } else if (playerInput === 1 && comInput === 2) {
+            comScore ++;
+            gameText.textContent = "You lost, Sciccors beats Paper!";
+        } else if (playerInput === 2 && comInput === 0) {
+            comScore ++;
+            gameText.textContent = "You lost, Rock beats Sciccors!";
+        } else if (playerInput === 2 && comInput === 1) {
+            playerScore ++;
+            gameText.textContent = "You won, Sciccors beats Paper!";
+        };
+        
+        playerScoreTitle.textContent = "SCORE: " + playerScore;
+        comScoreTitle.textContent = "SCORE: " + comScore;
+
+        if (comScore === 5) {
+            console.log("YOU LOST!")
+        } else if (playerScore === 5) {
+            console.log("YOU WON!");
+        };
+    }
+}
 
 // StartUp function
 

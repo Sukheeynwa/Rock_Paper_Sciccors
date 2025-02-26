@@ -4,20 +4,34 @@
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 #mainContainer {
-    padding: 80px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+}
+
+#menuBtn {
+    position: absolute;
+    left: 20px;
+    scale: 80%;
+}
+
+#resetBtn {
+    position: absolute;
+    right: 20px;
+    scale: 80%;
 }
 
 #mainContainer > div {
     display: flex;
-    gap: 30px;
-    margin-bottom: 80px;
+    gap: 20px;
+    margin-bottom: 40px;
+    margin-top: 40px;
 }
 
 
@@ -26,10 +40,14 @@ button {
     background-color: black;
     border-radius: 30px;
     border: none;
-    width: 320px;
-    height: 80px; 
-    font-size: 30px;
-    margin-bottom: 30px;
+    width: 240px;
+    height: 60px; 
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+img {
+    height: 120px;
 }
 
 button:hover,
@@ -49,7 +67,6 @@ img:active {
 
 #playerContainer,
 #comContainer {
-    background-color: #E2E56E;
     display: flex;
     flex-direction: column;
     align-items: center;
